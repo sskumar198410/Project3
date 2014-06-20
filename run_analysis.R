@@ -82,7 +82,7 @@ colnames(Extracted_data) <- sapply(col_names, function(x) str_replace_all(x, "\\
 Extracted_data$Activity <- factor(Extracted_data$Activity,levels=data.set$activity_labels$Activity_Id,labels=data.set$activity_labels$Activity_Name)
 
 #Writing the tidy data into the file
-write.csv(Extracted_data,paste(base_dir,"tidy_data.csv",sep="/Output/"))
+write.table(Extracted_data,file=paste(base_dir,"tidy_data.txt",sep="/Output/"),row.names=FALSE)
 
 #Calculating the mean on all variables for each activity and each subject
 calc_mean <- aggregate(Extracted_data,by=list(Subject=Extracted_data$Subject,Activity=Extracted_data$Activity),FUN=mean)
@@ -92,6 +92,6 @@ calc_mean <- subset(calc_mean,select = -c(3,4))
 colnames(calc_mean)[-c(1:2)] <- paste("Mean",colnames(calc_mean)[-c(1:2)],sep=" -" )
 
 #Writing the second set of data into csv file
-write.csv(calc_mean,paste(base_dir,"tidy_data2.csv",sep="/Output/"))
+write.csv(calc_mean,file=paste(base_dir,"tidy_data2.txt",sep="/Output/"),row.names=FALSE)
 
                                                   
